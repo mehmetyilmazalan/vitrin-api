@@ -1,27 +1,42 @@
 package com.mehmetyilmazalan.vitrin.controller;
 
 import com.mehmetyilmazalan.vitrin.model.Urun;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.mehmetyilmazalan.vitrin.repository.Repository;
+import com.mehmetyilmazalan.vitrin.service.UrunServisi;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 public class UrunController {
+
+    private UrunServisi urunServisi;
+
+    public UrunController(UrunServisi urunServisi) {
+        this.urunServisi = urunServisi;
+    }
 
     @GetMapping("/katalog")
     public List<Urun> katalogGoster(){
 
-        Urun urun1= new Urun(1,"Klavye",BigDecimal.valueOf(100),10);
-        Urun urun2= new Urun(2,"Mouse",BigDecimal.valueOf(50),5);
-
-        ArrayList<Urun> urunListesi=new ArrayList<>();
-        urunListesi.add(urun1);
-        urunListesi.add(urun2);
-        return urunListesi;
-
+        return urunServisi.urunListele();
 
     }
+
+    @GetMapping("/katalog/{urunId}")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Urun katalogGoster(@PathVariable("urunId")Integer urunIdsi){
+        return urunServisi.getir(urunIdsi);
+    }
+
+    @GetMapping("/katalog/ara")
+    public List<Urun> urunAra(@RequestParam("ad") String urunAdi){
+
+        return urunServisi.urunAra(urunAdi);
+    }
+
 }
