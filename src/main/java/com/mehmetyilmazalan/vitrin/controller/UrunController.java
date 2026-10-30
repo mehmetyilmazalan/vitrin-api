@@ -46,4 +46,9 @@ public class UrunController {
         return urunServisi.urunOlustur(olusturulanUrun);
     }
 
+
+
+
+
+
 }
