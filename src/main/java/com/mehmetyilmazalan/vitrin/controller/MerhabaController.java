@@ -1,9 +1,6 @@
 package com.mehmetyilmazalan.vitrin.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MerhabaController {
@@ -27,6 +24,11 @@ public class MerhabaController {
     public String manzaraSec(@RequestParam("sehir") String arananSehir){
 
         return "Aranan Şehir :" + arananSehir;
+    }
+
+    @PostMapping("/rezervasyon-notu")
+    public String notAl(@RequestBody String not){
+        return "Not alındı : " + not;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.mehmetyilmazalan.vitrin.repository;
 
 import com.mehmetyilmazalan.vitrin.exception.UrunBulunamadiException;
+import com.mehmetyilmazalan.vitrin.exception.UrunZatenKayitliException;
 import com.mehmetyilmazalan.vitrin.model.Urun;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class UrunRepository implements Repository<Urun,Integer>{
     @Override
     public void ekle(Urun urun){
         if(urunKayitlari.containsKey(urun.getUrunId())){
-            throw new IllegalArgumentException("Bu id ile kayıtlı bir ürün zaten var.");
+            throw new UrunZatenKayitliException("Bu id ile kayıtlı bir ürün zaten var.");
         }
         urunKayitlari.put(urun.getUrunId(),urun);
     }

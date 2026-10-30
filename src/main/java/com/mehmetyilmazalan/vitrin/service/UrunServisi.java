@@ -1,5 +1,6 @@
 package com.mehmetyilmazalan.vitrin.service;
 
+import com.mehmetyilmazalan.vitrin.dto.UrunOlusturmaIstegi;
 import com.mehmetyilmazalan.vitrin.model.Urun;
 import com.mehmetyilmazalan.vitrin.repository.Repository;
 import org.springframework.stereotype.Service;
@@ -117,6 +118,13 @@ public class UrunServisi {
 
     public Urun getir(Integer urunId){
         return urunRepository.getir(urunId);
+    }
+
+    public Urun urunOlustur(UrunOlusturmaIstegi olusturulanUrun){
+        Urun urun = new Urun(olusturulanUrun.getUrunId(),olusturulanUrun.getUrunAdi(),olusturulanUrun.getUrunFiyati(),olusturulanUrun.getUrunStok());
+        urunRepository.ekle(urun);
+
+        return urun;
     }
 
 }
