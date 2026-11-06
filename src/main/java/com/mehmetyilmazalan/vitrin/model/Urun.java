@@ -1,5 +1,7 @@
 package com.mehmetyilmazalan.vitrin.model;
 
+import com.mehmetyilmazalan.vitrin.exception.YetersizStokException;
+
 import java.math.BigDecimal;
 
 public class Urun {
@@ -76,8 +78,10 @@ public class Urun {
     }
 
     public void stokAzalt(int miktar){
-        if(urunStok < miktar ||  miktar<=0){
-            throw new IllegalArgumentException("Azaltılacak miktar ürün stoğundan büyük ,sıfır veya negatif olamaz.");
+        if(miktar<=0){
+            throw new IllegalArgumentException("Azaltılacak miktar sıfır veya negatif olamaz.");
+        }else if(miktar>urunStok){
+            throw new YetersizStokException("Mevcut ürün miktarından daha fazla azaltılamaz.");
         }
 
         this.urunStok -= miktar;

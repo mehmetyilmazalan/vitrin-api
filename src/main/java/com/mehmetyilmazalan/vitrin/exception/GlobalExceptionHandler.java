@@ -41,6 +41,7 @@ public class GlobalExceptionHandler {
 
     }
 
+
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(UrunZatenKayitliException.class)
     public HataCevabi hataCevabi(UrunZatenKayitliException hata){
@@ -48,6 +49,21 @@ public class GlobalExceptionHandler {
         HataCevabi hataCevabi=new HataCevabi(hata.getMessage());
         return hataCevabi;
 
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(YetersizStokException.class)
+    public HataCevabi hataCevabi(YetersizStokException hata){
+        HataCevabi hataCevabi=new HataCevabi(hata.getMessage());
+        return hataCevabi;
+    }
+
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(GecersizStokSiniriException.class)
+    public HataCevabi hataCevabi(GecersizStokSiniriException hata){
+        HataCevabi hataCevabi=new HataCevabi(hata.getMessage());
+        return hataCevabi;
     }
 
 }

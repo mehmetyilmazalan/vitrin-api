@@ -1,6 +1,7 @@
 package com.mehmetyilmazalan.vitrin.service;
 
 import com.mehmetyilmazalan.vitrin.dto.UrunOlusturmaIstegi;
+import com.mehmetyilmazalan.vitrin.exception.GecersizStokSiniriException;
 import com.mehmetyilmazalan.vitrin.model.Urun;
 import com.mehmetyilmazalan.vitrin.repository.Repository;
 import org.springframework.stereotype.Service;
@@ -21,18 +22,23 @@ public class UrunServisi {
         this.urunRepository=urunRepository;
     }
 
-    public void fiyatGuncelle(Integer urunId,BigDecimal yeniFiyat){
+    public Urun fiyatGuncelle(Integer urunId , BigDecimal yeniFiyat){
         urunRepository.getir(urunId).fiyatGuncelle(yeniFiyat);
+        return urunRepository.getir(urunId);
     }
-    public void adGuncelle(Integer urunId, String yeniAd) {
+    public Urun adGuncelle(Integer urunId, String yeniAd) {
         urunRepository.getir(urunId).adGuncelle(yeniAd);
+        return urunRepository.getir(urunId);
     }
 
-    public void stokArttir(Integer urunId,Integer miktar){
+    public Urun stokArttir(Integer urunId,Integer miktar){
         urunRepository.getir(urunId).stokArttir(miktar);
+        return urunRepository.getir(urunId);
     }
-    public void stokAzalt(Integer urunId, Integer miktar){
+    public Urun stokAzalt(Integer urunId, Integer miktar){
         urunRepository.getir(urunId).stokAzalt(miktar);
+        return urunRepository.getir(urunId);
+
     }
     public void urunEkle(Urun urun){
         urunRepository.ekle(urun);
@@ -100,7 +106,7 @@ public class UrunServisi {
 
     public List<Urun> dusukStokluUrunleriListele(int stokSiniri) {
         if (stokSiniri < 0) {
-            throw new IllegalArgumentException(
+            throw new GecersizStokSiniriException(
                     "Stok sınırı negatif olamaz."
             );
         }
